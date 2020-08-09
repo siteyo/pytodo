@@ -1,6 +1,7 @@
 import copy
 import json
 import os
+import uuid
 from typing import Dict, List, Optional, TypedDict
 
 from pytodo.domain.models.interface_task_repository import ITaskRepository
@@ -53,7 +54,7 @@ class TaskRepository(ITaskRepository):
         task_list: List[Task] = []
         tasks = self.__get_all_tasks()
         for task_id, task_data in tasks.items():
-            id = TaskId(task_id)
+            id = TaskId(uuid.UUID(task_id))
             is_done = task_data.get("is_done", False)
             text = Text(task_data.get("text", ""))
             task = Task.reconstruct(id, is_done, text)
@@ -62,4 +63,6 @@ class TaskRepository(ITaskRepository):
 
     def delete(self, task: Task) -> None:
         tasks = self.__get_all_tasks()
-        tasks.pop(task.id.value)
+        tasks.pop(str(task.id.value))
+        with open(self.__save_to, "w") as fp:
+            json.dump(tasks, fp, indent=2)

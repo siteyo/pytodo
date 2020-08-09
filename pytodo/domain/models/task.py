@@ -1,9 +1,9 @@
-import uuid
 import copy
+import uuid
 from typing import Optional
 
-from pytodo.domain.models.text import Text
 from pytodo.domain.models.task_id import TaskId
+from pytodo.domain.models.text import Text
 
 
 class Task:
@@ -18,19 +18,19 @@ class Task:
         text: Optional[Text] = None,
     ) -> None:
         # Task ID
-        if id is None:
+        if not isinstance(id, TaskId):
             raise ValueError
         self.__id = copy.deepcopy(id)
 
         # Done
-        if is_done is None:
+        if not isinstance(is_done, bool):
             raise ValueError
         self.is_done = is_done
 
         # Contents
-        if text is None:
+        if not isinstance(text, Text):
             raise ValueError
-        self.text = text
+        self.text = copy.deepcopy(text)
 
     @classmethod
     def create(cls, text: Text) -> "Task":
@@ -53,7 +53,7 @@ class Task:
     def is_done(self, value: bool) -> None:
         if not isinstance(value, bool):
             raise TypeError
-        self.__is_done = copy.deepcopy(value)
+        self.__is_done = value
 
     @property
     def text(self) -> Text:

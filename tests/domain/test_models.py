@@ -4,7 +4,6 @@ from typing import Callable, List
 import pytest
 
 from pytodo.domain.models.task import Task
-from pytodo.domain.models.task_data import TaskData
 from pytodo.domain.models.task_id import TaskId
 from pytodo.domain.models.task_repository import TaskRepository
 from pytodo.domain.models.text import Text
@@ -120,16 +119,16 @@ class TestTask:
         assert task.text.value == string * 2
 
 
-class TestTaskData:
-    def test_init(self) -> None:
-        string = "Hello"
-        text = Text(string)
-        task = Task.create(text)
+# class TestTaskData:
+#     def test_init(self) -> None:
+#         string = "Hello"
+#         text = Text(string)
+#         task = Task.create(text)
 
-        data = TaskData(task)
-        assert data.id == task.id.value
-        assert data.is_done == task.is_done
-        assert data.text == task.text.value
+#         data = TaskData(task)
+#         assert data.id == task.id.value
+#         assert data.is_done == task.is_done
+#         assert data.text == task.text.value
 
 
 class TestTaskRepository:
@@ -156,8 +155,12 @@ class TestTaskRepository:
         task_repository.save(tasks[0])
         task_repository.find(tasks[0].id)
 
-    def test_find_all(self) -> None:
-        pass
+    def test_find_all(self, task_repository: TaskRepository) -> None:
+        tasks = task_repository.find_all()
+        for task in tasks:
+            assert isinstance(task, Task)
 
-    def test_delete(self) -> None:
-        pass
+    def test_delete(self, task_repository: TaskRepository) -> None:
+        tasks = task_repository.find_all()
+        for task in tasks:
+            task_repository.delete(task)
