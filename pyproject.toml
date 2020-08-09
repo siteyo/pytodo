@@ -18,6 +18,9 @@ python-language-server = "^0.34.1"
 python-dotenv = "^0.14.0"
 ipython = "^7.17.0"
 
+[tool.poetry.scripts]
+pytodo = "pytodo.cli:main"
+
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
