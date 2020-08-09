@@ -185,3 +185,6 @@ tags
 [._]*.un~
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,python,vim
+
+# Project
+test_repo_data/
