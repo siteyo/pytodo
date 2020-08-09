@@ -44,9 +44,9 @@ class TaskRepository(ITaskRepository):
     def find(self, id: TaskId) -> Optional[Task]:
         todos = self.__get_all_tasks()
         found_task: Optional[Task] = None
-        if id.value in todos.keys():
+        if str(id.value) in todos.keys():
             found_task = Task.reconstruct(
-                id, todos[id.value]["is_done"], Text(todos[id.value]["text"]),
+                id, todos[str(id.value)]["is_done"], Text(todos[str(id.value)]["text"]),
             )
         return found_task
 
@@ -66,3 +66,7 @@ class TaskRepository(ITaskRepository):
         tasks.pop(str(task.id.value))
         with open(self.__save_to, "w") as fp:
             json.dump(tasks, fp, indent=2)
+
+    def clear(self) -> None:
+        with open(self.__save_to, "w") as fp:
+            json.dump({}, fp, indent=2)
