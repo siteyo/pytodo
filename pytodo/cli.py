@@ -12,25 +12,46 @@ if TYPE_CHECKING:
 class CliApp:
     __task_app_service: TaskApplicationService
 
-    def __init__(
-        self, save_to: str = "~/.pytodo/", filename: str = "data.json"
-    ) -> None:
-        task_repository = TaskRepository(save_to, filename)
-        self.__task_app_service = TaskApplicationService(task_repository)
-
-    def init(self) -> None:
-        pass
+    def __init__(self) -> None:
+        """
+        Initialize CLI application.
+        """
+        app_dir = "~/.pytodo/"
+        tasks_file = "data.json"
+        repo = TaskRepository(app_dir, tasks_file)
+        self.__task_app_service = TaskApplicationService(repo)
 
     def add(self, text: str) -> None:
+        """
+        Add task.
+
+        Parameters
+        ----------
+        text: str
+            Task description.
+        """
         self.__task_app_service.add(text)
         print("Added task")
 
     def list(self) -> None:
+        """
+        Display task list.
+        """
         tasks_data: List["TaskData"] = self.__task_app_service.get_all()
         for index, task_data in enumerate(tasks_data):
-            print(f"{index}, {task_data.id=}, {task_data.is_done=}, {task_data.text=}")
+            disp_text = f"{index}: {task_data.text} - "
+            disp_text += "Done" if task_data.is_done else "Not yet"
+            print(disp_text)
 
     def remove(self, index: int) -> None:
+        """
+        Remove task.
+
+        Parameters
+        ----------
+        index: int
+            Index of task.
+        """
         tasks_data: List["TaskData"] = self.__task_app_service.get_all()
         self.__task_app_service.delete(tasks_data[index].id)
 
