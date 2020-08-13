@@ -54,7 +54,7 @@ class CliApp:
                     return
                 elif i in ["y", "Y", ""]:
                     print(f"Created a directory in '{path}'")
-                    # [TODO] Implement directory creation process
+                    os.makedirs(path)
                 else:
                     print("Please input 'y' or 'n'")
 
