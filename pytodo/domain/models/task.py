@@ -2,8 +2,8 @@ import copy
 import uuid
 from typing import Optional
 
-from pytodo.domain.models.task_id import TaskId
-from pytodo.domain.models.text import Text
+from .task_id import TaskId
+from .text import Text
 
 
 class Task:

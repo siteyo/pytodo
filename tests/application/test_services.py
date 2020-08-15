@@ -6,7 +6,7 @@ import pytest
 from pytodo.application.task.task_application_service import TaskApplicationService
 from pytodo.application.task.task_data import TaskData
 from pytodo.application.task.task_update_command import TaskUpdateCommand
-from pytodo.domain.models.task_repository import TaskRepository
+from pytodo.domain.models import TaskRepository
 
 
 @pytest.fixture

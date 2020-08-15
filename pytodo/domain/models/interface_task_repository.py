@@ -2,8 +2,8 @@ from abc import abstractmethod
 from typing import TYPE_CHECKING, List, Optional, Protocol
 
 if TYPE_CHECKING:
-    from pytodo.domain.models.task import Task
-    from pytodo.domain.models.task_id import TaskId
+    from .task import Task
+    from .task_id import TaskId
 
 
 class ITaskRepository(Protocol):

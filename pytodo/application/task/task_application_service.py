@@ -2,10 +2,10 @@ from typing import TYPE_CHECKING, List, Optional
 
 from pytodo.application.task.task_data import TaskData
 from pytodo.application.task.task_update_command import TaskUpdateCommand
-from pytodo.domain.models.interface_task_repository import ITaskRepository
-from pytodo.domain.models.task import Task
-from pytodo.domain.models.task_id import TaskId
-from pytodo.domain.models.text import Text
+from pytodo.domain.models import ITaskRepository
+from pytodo.domain.models import Task
+from pytodo.domain.models import TaskId
+from pytodo.domain.models import Text
 
 if TYPE_CHECKING:
     import uuid

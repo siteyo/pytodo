@@ -2,7 +2,7 @@ import uuid
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from pytodo.domain.models.task import Task
+    from pytodo.domain.models import Task
 
 
 class TaskData:
