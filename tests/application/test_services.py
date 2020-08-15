@@ -4,7 +4,7 @@ from typing import Callable, List
 import pytest
 
 from pytodo.application.task import TaskApplicationService, TaskData, TaskUpdateCommand
-from pytodo.domain.models import TaskRepository
+from pytodo.domain.models import Task, TaskRepository, Text
 
 
 @pytest.fixture
@@ -14,6 +14,18 @@ def task_app_service_factory() -> Callable[[TaskRepository], TaskApplicationServ
         return TaskApplicationService(repo)
 
     return factory
+
+
+class TestTaskData:
+    def test_init(self) -> None:
+        string = "Hello"
+        text = Text(string)
+        task = Task.create(text)
+
+        data = TaskData(task)
+        assert data.id == task.id.value
+        assert data.is_done == task.is_done
+        assert data.text == task.text.value
 
 
 class TestTaskUpdateCommand:
