@@ -3,11 +3,11 @@ from typing import TYPE_CHECKING, List
 
 import fire
 
-from pytodo.application.task.task_application_service import TaskApplicationService
-from pytodo.domain.models.task_repository import TaskRepository
+from pytodo.application.task import TaskApplicationService
+from pytodo.domain.models import TaskRepository
 
 if TYPE_CHECKING:
-    from pytodo.application.task.task_data import TaskData
+    from pytodo.application.task import TaskData
 
 
 DIR = "~/.pytodo/"

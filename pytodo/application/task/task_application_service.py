@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, List, Optional
 
-from pytodo.application.task.task_data import TaskData
-from pytodo.application.task.task_update_command import TaskUpdateCommand
+from .task_data import TaskData
+from .task_update_command import TaskUpdateCommand
 from pytodo.domain.models import ITaskRepository
 from pytodo.domain.models import Task
 from pytodo.domain.models import TaskId
