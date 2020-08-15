@@ -1,11 +1,9 @@
 from typing import TYPE_CHECKING, List, Optional
 
+from pytodo.domain.models import ITaskRepository, Task, TaskId, Text
+
 from .task_data import TaskData
 from .task_update_command import TaskUpdateCommand
-from pytodo.domain.models import ITaskRepository
-from pytodo.domain.models import Task
-from pytodo.domain.models import TaskId
-from pytodo.domain.models import Text
 
 if TYPE_CHECKING:
     import uuid

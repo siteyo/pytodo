@@ -3,9 +3,7 @@ from typing import Callable, List
 
 import pytest
 
-from pytodo.application.task import TaskApplicationService
-from pytodo.application.task import TaskData
-from pytodo.application.task import TaskUpdateCommand
+from pytodo.application.task import TaskApplicationService, TaskData, TaskUpdateCommand
 from pytodo.domain.models import TaskRepository
 
 
