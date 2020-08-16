@@ -1,7 +1,7 @@
 import uuid
 
 
-class TaskUpdateCommand:
+class TaskEditCommand:
     __id: uuid.UUID
     __text: str
 

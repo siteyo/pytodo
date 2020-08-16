@@ -44,23 +44,23 @@ class Task:
 
         Raises
         ------
-        ValueError
+        TypeError
             If the argument type is wrong.
         """
 
         # Task ID
         if not isinstance(id, TaskId):
-            raise ValueError
+            raise TypeError("The id argument must be an instance of TaskId.")
         self.__id = copy.deepcopy(id)
 
         # Done
         if not isinstance(is_done, bool):
-            raise ValueError
+            raise TypeError("The is_done argument must be of type bool.")
         self.is_done = is_done
 
         # Text
         if not isinstance(text, Text):
-            raise ValueError
+            raise TypeError("The text argument must be an instance of Text")
         self.text = copy.deepcopy(text)
 
     @classmethod
