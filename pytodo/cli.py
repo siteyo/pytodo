@@ -1,3 +1,16 @@
+"""
+pytodo CLI application module.
+
+It is enabled on the command line using the fire module.
+
+Attributes
+----------
+DIR: str
+    The directory that stores application data, defaults to "~/.pytodo/"
+FILENAME: str
+    The name of the file that stores the application data, defaults to "data.json"
+"""
+
 import os
 from typing import TYPE_CHECKING, List
 
@@ -15,6 +28,10 @@ FILENAME = "data.json"
 
 
 class CliApp:
+    """
+    A class that implements the commands that can be used in the pytodo CLI application.
+    """
+
     __task_app_service: TaskApplicationService
 
     def __init__(self, dir: str = DIR, filename: str = FILENAME) -> None:
@@ -28,6 +45,7 @@ class CliApp:
         filename: str
             The name of the file that stores the application data.
         """
+
         self.init(dir, filename)
         repo = TaskRepository(dir, filename)
         self.__task_app_service = TaskApplicationService(repo)
@@ -43,6 +61,7 @@ class CliApp:
         filename: str
             The name of the file that stores the application data.
         """
+
         path = os.path.expanduser(dir)
         if not os.path.exists(path):
             print(f"{path} is not exist.")
@@ -76,6 +95,7 @@ class CliApp:
         text: str
             Task description.
         """
+
         self.__task_app_service.add(text)
         print("Added task")
 
@@ -83,6 +103,7 @@ class CliApp:
         """
         Display task list.
         """
+
         tasks_data: List["TaskData"] = self.__task_app_service.get_all()
         for index, task_data in enumerate(tasks_data):
             disp_text = f"{index}: {task_data.text} - "
@@ -98,6 +119,7 @@ class CliApp:
         index: int
             Index of task.
         """
+
         tasks_data: List["TaskData"] = self.__task_app_service.get_all()
         self.__task_app_service.delete(tasks_data[index].id)
 
