@@ -64,6 +64,14 @@ class TestTask:
         assert task.is_done is False
         assert task.text.value == string
 
+    def test_init_raises(self) -> None:
+        with pytest.raises(TypeError):
+            Task.reconstruct(0, True, Text("Hello"))
+        with pytest.raises(TypeError):
+            Task.reconstruct(uuid.uuid1(), 0, Text("Hello"))
+        with pytest.raises(TypeError):
+            Task.reconstruct(uuid.uuid1(), True, "Hello")
+
     def test_reconstruct(self) -> None:
         id = TaskId(uuid.uuid1())
         is_done = True
