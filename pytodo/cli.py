@@ -12,11 +12,11 @@ FILENAME: str
 """
 
 import os
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING, List, Optional
 
 import fire
 
-from pytodo.application.task import TaskApplicationService
+from pytodo.application.task import TaskApplicationService, TaskUpdateCommand
 from pytodo.domain.models import TaskRepository
 
 if TYPE_CHECKING:
@@ -122,6 +122,23 @@ class CliApp:
 
         tasks_data: List["TaskData"] = self.__task_app_service.get_all()
         self.__task_app_service.delete(tasks_data[index].id)
+
+    def edit(self, index: int, text: Optional[str] = None) -> None:
+        """
+        Edit task text.
+
+        Parameters
+        ----------
+        index: int
+            Index of task.
+        text: str, optional
+            New text, defaults to None.
+        """
+        if text is None:
+            text = input("Input new text: ")
+        tasks_data: List["TaskData"] = self.__task_app_service.get_all()
+        cmd = TaskUpdateCommand(tasks_data[index].id, tasks_data[index].is_done, text)
+        self.__task_app_service.update(cmd)
 
 
 def main() -> None:
