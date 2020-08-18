@@ -140,6 +140,20 @@ class CliApp:
         cmd = TaskUpdateCommand(tasks_data[index].id, tasks_data[index].is_done, text)
         self.__task_app_service.update(cmd)
 
+    def done(self, index: int) -> None:
+        """
+        Done task.
+
+        Parameters
+        ----------
+        index: int
+            Index of task.
+        """
+        tasks_data: List["TaskData"] = self.__task_app_service.get_all()
+        done_task = tasks_data[index]
+        cmd = TaskUpdateCommand(done_task.id, True, done_task.text)
+        self.__task_app_service.update(cmd)
+
 
 def main() -> None:
     fire.Fire(CliApp)
