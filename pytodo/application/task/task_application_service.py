@@ -1,11 +1,9 @@
 from typing import TYPE_CHECKING, List, Optional
 
-from pytodo.application.task.task_data import TaskData
-from pytodo.application.task.task_update_command import TaskUpdateCommand
-from pytodo.domain.models.interface_task_repository import ITaskRepository
-from pytodo.domain.models.task import Task
-from pytodo.domain.models.task_id import TaskId
-from pytodo.domain.models.text import Text
+from pytodo.domain.models import ITaskRepository, Task, TaskId, Text
+
+from .task_data import TaskData
+from .task_update_command import TaskUpdateCommand
 
 if TYPE_CHECKING:
     import uuid
@@ -28,6 +26,7 @@ class TaskApplicationService:
             raise ValueError
         text = Text(command.text)
         task.text = text
+        task.is_done = command.is_done
         self.__task_repository.save(task)
 
     def get(self, task_id: "uuid.UUID") -> Optional[TaskData]:

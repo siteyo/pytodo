@@ -3,10 +3,7 @@ from typing import Callable, List
 
 import pytest
 
-from pytodo.domain.models.task import Task
-from pytodo.domain.models.task_id import TaskId
-from pytodo.domain.models.task_repository import TaskRepository
-from pytodo.domain.models.text import Text
+from pytodo.domain.models import Task, TaskId, TaskRepository, Text
 from tests.settings import TEST_DIR, TEST_FILENAME
 
 

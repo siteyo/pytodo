@@ -3,43 +3,8 @@ from typing import Callable, List
 
 import pytest
 
-from pytodo.domain.models.task import Task
-from pytodo.domain.models.task_id import TaskId
-from pytodo.domain.models.task_repository import TaskRepository
-from pytodo.domain.models.text import Text
+from pytodo.domain.models import Task, TaskId, TaskRepository, Text
 from tests.settings import TEST_DIR, TEST_FILENAME
-
-
-# @pytest.fixture
-# def create_tasks_factory() -> Callable[[List[str]], List[Task]]:
-#     def factory(texts: List[str]) -> List[Task]:
-#         return [Task.create(Text(text)) for text in texts]
-
-#     return factory
-
-
-# @pytest.fixture
-# def task_ids_factory() -> Callable[[int], List[TaskId]]:
-#     def factory(num: int) -> List[TaskId]:
-#         task_ids: List[TaskId] = []
-#         for idx in range(num):
-#             task_ids.append(TaskId(uuid.uuid1()))
-#         return task_ids
-
-#     return factory
-
-
-# @pytest.fixture
-# def task_repository_factory() -> Callable[[str, str], TaskRepository]:
-#     def factory(save_to: str, filename: str) -> TaskRepository:
-#         return TaskRepository(save_to, filename)
-
-#     return factory
-
-
-# @pytest.fixture
-# def task_repository() -> TaskRepository:
-#     return TaskRepository(TEST_DIR, TEST_FILENAME)
 
 
 class TestTaskId:
@@ -99,6 +64,14 @@ class TestTask:
         assert task.is_done is False
         assert task.text.value == string
 
+    def test_init_raises(self) -> None:
+        with pytest.raises(TypeError):
+            Task.reconstruct(0, True, Text("Hello"))
+        with pytest.raises(TypeError):
+            Task.reconstruct(uuid.uuid1(), 0, Text("Hello"))
+        with pytest.raises(TypeError):
+            Task.reconstruct(uuid.uuid1(), True, "Hello")
+
     def test_reconstruct(self) -> None:
         id = TaskId(uuid.uuid1())
         is_done = True
@@ -117,18 +90,6 @@ class TestTask:
         assert isinstance(task.id, TaskId)
         assert task.is_done is True
         assert task.text.value == string * 2
-
-
-# class TestTaskData:
-#     def test_init(self) -> None:
-#         string = "Hello"
-#         text = Text(string)
-#         task = Task.create(text)
-
-#         data = TaskData(task)
-#         assert data.id == task.id.value
-#         assert data.is_done == task.is_done
-#         assert data.text == task.text.value
 
 
 class TestTaskRepository:

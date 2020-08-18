@@ -3,10 +3,8 @@ from typing import Callable, List
 
 import pytest
 
-from pytodo.application.task.task_application_service import TaskApplicationService
-from pytodo.application.task.task_data import TaskData
-from pytodo.application.task.task_update_command import TaskUpdateCommand
-from pytodo.domain.models.task_repository import TaskRepository
+from pytodo.application.task import TaskApplicationService, TaskData, TaskUpdateCommand
+from pytodo.domain.models import Task, TaskRepository, Text
 
 
 @pytest.fixture
@@ -18,12 +16,25 @@ def task_app_service_factory() -> Callable[[TaskRepository], TaskApplicationServ
     return factory
 
 
+class TestTaskData:
+    def test_init(self) -> None:
+        string = "Hello"
+        text = Text(string)
+        task = Task.create(text)
+
+        data = TaskData(task)
+        assert data.id == task.id.value
+        assert data.is_done == task.is_done
+        assert data.text == task.text.value
+
+
 class TestTaskUpdateCommand:
     def test_cmd(self) -> None:
         u = uuid.uuid1()
         string = "Test string"
-        cmd = TaskUpdateCommand(u, string)
+        cmd = TaskUpdateCommand(u, True, string)
         assert cmd.id == u
+        assert cmd.is_done is True
         assert cmd.text == string
 
 

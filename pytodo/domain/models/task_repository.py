@@ -4,10 +4,10 @@ import os
 import uuid
 from typing import Dict, List, Optional, TypedDict
 
-from pytodo.domain.models.interface_task_repository import ITaskRepository
-from pytodo.domain.models.task import Task
-from pytodo.domain.models.task_id import TaskId
-from pytodo.domain.models.text import Text
+from .interface_task_repository import ITaskRepository
+from .task import Task
+from .task_id import TaskId
+from .text import Text
 
 
 class TaskData(TypedDict):
