@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, List, Optional
 from pytodo.domain.models import ITaskRepository, Task, TaskId, Text
 
 from .task_data import TaskData
-from .task_edit_command import TaskEditCommand
+from .task_update_command import TaskUpdateCommand
 
 if TYPE_CHECKING:
     import uuid
@@ -19,13 +19,14 @@ class TaskApplicationService:
         task = Task.create(Text(text))
         self.__task_repository.save(task)
 
-    def update(self, command: TaskEditCommand) -> None:
+    def update(self, command: TaskUpdateCommand) -> None:
         target_id = TaskId(command.id)
         task = self.__task_repository.find(target_id)
         if task is None:
             raise ValueError
         text = Text(command.text)
         task.text = text
+        task.is_done = command.is_done
         self.__task_repository.save(task)
 
     def get(self, task_id: "uuid.UUID") -> Optional[TaskData]:

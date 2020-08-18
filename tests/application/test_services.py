@@ -3,7 +3,7 @@ from typing import Callable, List
 
 import pytest
 
-from pytodo.application.task import TaskApplicationService, TaskData, TaskEditCommand
+from pytodo.application.task import TaskApplicationService, TaskData, TaskUpdateCommand
 from pytodo.domain.models import Task, TaskRepository, Text
 
 
@@ -32,8 +32,9 @@ class TestTaskUpdateCommand:
     def test_cmd(self) -> None:
         u = uuid.uuid1()
         string = "Test string"
-        cmd = TaskEditCommand(u, string)
+        cmd = TaskUpdateCommand(u, True, string)
         assert cmd.id == u
+        assert cmd.is_done is True
         assert cmd.text == string
 
 
