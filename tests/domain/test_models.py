@@ -15,10 +15,10 @@ class TestTaskId:
 
     def test_init_errors(self) -> None:
         with pytest.raises(TypeError):
-            TaskId()  # type: ignore
+            TaskId()
 
         with pytest.raises(TypeError):
-            TaskId(None)  # type: ignore
+            TaskId(None)
 
     def test_eq(self, task_ids_factory: Callable[[int], List[TaskId]]) -> None:
         id_num = 2
