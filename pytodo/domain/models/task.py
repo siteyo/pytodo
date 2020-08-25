@@ -110,6 +110,8 @@ class Task:
 
         Examples
         --------
+        >>> import uuid
+        >>> Task.reconstruct(uuid.uuid1(), True, Text("Hello"))
         """
 
         return cls(id, is_done, text)
